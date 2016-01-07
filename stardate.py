@@ -7,45 +7,62 @@ Created on Thu Jan 07 13:47:36 2016
 
 from __future__ import division
 from pylab import*
-from datetime import datetime
+from datetime import datetime, timedelta
 
 interactive(True)
 close('all')
 
 class stardate(object):
+
+    def date2stardate(self):
+        
+        date_difference=self.date-self.start_date
+        stardate=date_difference.days/self.stardate_increment
+        
+        return [date_difference, stardate]
     
     def __init__(self, date2convert=datetime.today()):
         
+        year=365.2425
         self.date=date2convert
         self.type='standard'
-
-class gagarin(object):
+        self.start_date=datetime.today()-timedelta(days=year)
+        self.stardate_increment=year/1000
+        #self.date2stardate()
     
-    def __init__(self):
+
+
+class gagarin(stardate):
+    
+    def __init__(self,date2convert=datetime.today()):
         
         try:
-            stardate.__init__(self,date2convert)
+            stardate.__init__(self,date2convert=datetime.today())
         except ValueError:
             pass
-        self.type='gagarin'
+        self.type='Gagarin'
+        self.start_date=datetime(1961,04,12,06,07,00,000000)
+        self.time_diference, self.stardate=self.date2stardate()
+        print self.__dict__
 
-
-class cochrane(object):
+class cochrane(stardate):
     
-    def __init__(self):
+    def __init__(self,date2convert=datetime.today()):
         
         try:
-            stardate.__init__(self,date2convert)
+            stardate.__init__(self,date2convert=datetime.today())
         except ValueError:
             pass
-        self.type='cochrane'
+        self.type='Cochrane'
+        self.start_date=datetime(2063,04,05,11+7,00,00,000000)
+        self.time_diference, self.stardate=self.date2stardate()
 
-class cochrane(object):
-    
-    def __init__(self):
-        
-        try:
-            stardate.__init__(self,date2convert)
-        except ValueError:
-            pass
-        self.type='cochrane'
+#class cochrane(object):
+#    
+#    def __init__(self):
+#        
+#        try:
+#            stardate.__init__(self,date2convert)
+#        except ValueError:
+#            pass
+#        self.type='cochrane'
